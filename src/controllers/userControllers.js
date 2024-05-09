@@ -16,7 +16,7 @@ export async function registerUser(req, res) {
       password: hashedPassword,
     });
 
-    res.redirect("/login"); // Redirigir al usuario a la página de inicio de sesión
+    res.redirect("/users/login"); // Redirigir al usuario a la página de inicio de sesión
   } catch (err) {
     console.error("Registration Error:", err);
     res.status(500).send("Error registering user");
@@ -24,13 +24,6 @@ export async function registerUser(req, res) {
 }
 
 // En userControllers.js
-export async function loginUser(req, res) {
-  try {
-    const { email, password } = req.body;
-    // Aquí iría la lógica para verificar las credenciales del usuario
-    res.send("Login Successful"); // O lo que corresponda según tu lógica
-  } catch (error) {
-    console.error("Login Error:", error);
-    res.status(500).send("Error logging in");
-  }
+export function loginForm(req, res) {
+  res.render("login", { title: "Login" }); // Asegúrate de tener una vista 'login.ejs'
 }

@@ -25,5 +25,24 @@ export async function registerUser(req, res) {
 
 // En userControllers.js
 export function loginForm(req, res) {
-  res.render("login", { title: "Login" }); // Asegúrate de tener una vista 'login.ejs'
+  let error = req.query.error; // Captura el parámetro de error desde la query si existe
+  res.render("login", { title: "Login", query: { error: !!error } }); // Pasa el estado de error a la vista
+}
+
+export async function loginUser(req, res) {
+  try {
+    const { email, password } = req.body;
+    const user = await UserModel.findOne({ email });
+    if (user && (await bcrypt.compare(password, user.password))) {
+      // Si la contraseña coincide, redirigir al usuario a su página de inicio
+      req.session.user = user; // Guardando los detalles del usuario en la sesión
+      return res.redirect(`/users/home/${user.name}`);
+    } else {
+      // Si no coincide, enviar de vuelta al login con un mensaje
+      return res.redirect("/users/login?error=true");
+    }
+  } catch (error) {
+    console.error("Login Error:", error);
+    res.status(500).send("Error logging in");
+  }
 }

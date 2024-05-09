@@ -1,7 +1,8 @@
-<!-- views/login.ejs -->
-<!-- Asegúrate de que el formulario en tu vista 'login.ejs' apunte a la URL correcta -->
 <form action="/users/login" method="post">
   <input type="email" name="email" placeholder="Email" required />
   <input type="password" name="password" placeholder="Password" required />
   <button type="submit">Login</button>
+  <% if (query && query.error) { %>
+  <p style="color: red">Invalid email or password</p>
+  <% } %>
 </form>

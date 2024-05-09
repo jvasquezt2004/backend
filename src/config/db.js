@@ -3,10 +3,7 @@ import mongoose from "mongoose";
 export default class DB {
   static async connectDB() {
     try {
-      await mongoose.connect(process.env.DB_URL, {
-        useNewUrlParser: true,
-        useUnifiedTopology: true,
-      });
+      await mongoose.connect(process.env.DB_URL);
       console.log("Connected to database");
 
       const dbConnection = mongoose.connection;

@@ -1,0 +1,28 @@
+<!-- views/profile.ejs -->
+<h1>User Profile</h1>
+<form action="/users/profile" method="post">
+  <label for="name">Name:</label>
+  <input
+    type="text"
+    id="name"
+    name="name"
+    value="<%= user.name %>"
+    required
+  /><br />
+  <label for="email">Email:</label>
+  <input
+    type="email"
+    id="email"
+    name="email"
+    value="<%= user.email %>"
+    required
+  /><br />
+  <label for="password">Password:</label>
+  <input
+    type="password"
+    id="password"
+    name="password"
+    placeholder="New Password"
+  /><br />
+  <button type="submit">Update Profile</button>
+</form>

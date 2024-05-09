@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 
-const TagSchema = new mongoose.Schema({
+const tagSchema = new mongoose.Schema({
   name: {
     type: String,
     required: true,
@@ -8,5 +8,5 @@ const TagSchema = new mongoose.Schema({
   },
 });
 
-const TagModel = mongoose.model("Tag", TagSchema);
+const TagModel = mongoose.model("Tag", tagSchema, "Tags");
 export default TagModel;

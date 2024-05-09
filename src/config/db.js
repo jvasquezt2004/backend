@@ -3,19 +3,24 @@ import mongoose from "mongoose";
 export default class DB {
   static async connectDB() {
     try {
-      mongoose.connect(process.env.DB_URL);
+      await mongoose.connect(process.env.DB_URL, {
+        useNewUrlParser: true,
+        useUnifiedTopology: true,
+      });
+      console.log("Connected to database");
+
+      const dbConnection = mongoose.connection;
+      dbConnection.once("open", () => {
+        console.log("Database connection open");
+      });
+
+      dbConnection.on("error", (err) => {
+        console.error("Error connecting to database:", err);
+        process.exit(1);
+      });
     } catch (err) {
-      console.error("Error connecting to database");
+      console.error("Error connecting to database:", err);
       process.exit(1);
     }
-    const dbConnection = mongoose.connection;
-    dbConnection.once("open", (_) => {
-      console.log("Connected to database");
-    });
-
-    dbConnection.on("error", (err) => {
-      console.error * "Error connecting";
-      process.exit(1);
-    });
   }
 }

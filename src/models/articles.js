@@ -1,9 +1,9 @@
 import mongoose from "mongoose";
-import UserModel from "./users";
-import TagModel from "./tags";
+import UserModel from "./userModel";
+import TagModel from "./tagModel";
 
-const ArticleSchema = new mongoose.Schema({
-  name: {
+const articleSchema = new mongoose.Schema({
+  title: {
     type: String,
     required: true,
   },
@@ -16,13 +16,13 @@ const ArticleSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  tag: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "Tag",
-    required: true,
-  },
+  tags: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Tag",
+    },
+  ],
 });
 
-const ArticleModel = mongoose.model("Article", ArticleSchema);
-
+const ArticleModel = mongoose.model("Article", articleSchema, "Articles");
 export default ArticleModel;
